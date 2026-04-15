@@ -1,0 +1,60 @@
+name: repo-checks
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - "feat/**"
+      - "fix/**"
+      - "docs/**"
+      - "refactor/**"
+      - "hotfix/**"
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  repo-structure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check required folders
+        run: |
+          test -d frontend
+          test -d backend
+          test -d contracts
+          test -d docs
+          test -d infra
+          test -d scripts
+
+  docs-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check docs
+        run: |
+          test -f agent.md
+          test -f docs/README.md
+          test -f docs/conventions/README.md
+          test -f docs/project/README.md
+
+  utf8-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Basic UTF-8 sanity
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          targets = [
+              Path("agent.md"),
+              Path("docs/README.md"),
+              Path("docs/conventions/README.md"),
+              Path("docs/project/README.md"),
+          ]
+          for target in targets:
+              target.read_text(encoding="utf-8")
+          PY
+

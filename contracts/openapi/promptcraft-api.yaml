@@ -1,0 +1,254 @@
+openapi: 3.1.0
+info:
+  title: PromptCraft API
+  version: 0.1.0
+  description: PromptCraft backend API contract
+servers:
+  - url: /api/v1
+paths:
+  /intent:
+    post:
+      summary: Analyze user intent
+      operationId: analyzeIntent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntentRequest'
+      responses:
+        '200':
+          description: Intent analysis result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseIntentResult'
+  /examples/search:
+    post:
+      summary: Search prompt examples
+      operationId: searchExamples
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExampleSearchRequest'
+      responses:
+        '200':
+          description: Example search result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseExampleSearchResult'
+  /prompt/assemble:
+    post:
+      summary: Assemble prompt draft
+      operationId: assemblePrompt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PromptAssembleRequest'
+      responses:
+        '200':
+          description: Prompt assembly result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePromptAssembleResult'
+  /ai/generate:
+    post:
+      summary: Generate or rewrite prompt content with AI
+      operationId: generatePrompt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AIGenerateRequest'
+      responses:
+        '200':
+          description: AI generation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseAIGenerateResult'
+components:
+  schemas:
+    ApiResponseBase:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+        data: {}
+        error:
+          anyOf:
+            - type: 'null'
+            - $ref: '#/components/schemas/ApiError'
+      required: [success]
+    ApiError:
+      type: object
+      properties:
+        code:
+          type: string
+        details: {}
+      required: [code]
+    IntentRequest:
+      type: object
+      properties:
+        input:
+          type: string
+        context:
+          type: object
+          properties:
+            language:
+              type: string
+            surface:
+              type: string
+      required: [input]
+    IntentResult:
+      type: object
+      properties:
+        intent:
+          type: string
+        category:
+          type: string
+        subcategory:
+          type: string
+        confidence:
+          type: number
+        fallback_reason:
+          type: string
+        model_hint:
+          type: array
+          items:
+            type: string
+      required: [intent, category, confidence]
+    ExampleSearchRequest:
+      type: object
+      properties:
+        category:
+          type: string
+        subcategory:
+          type: string
+        intent_tags:
+          type: array
+          items:
+            type: string
+        market_pack:
+          type: string
+        target_model:
+          type: array
+          items:
+            type: string
+      required: [category]
+    ExampleSearchResult:
+      type: object
+      properties:
+        matches:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              score:
+                type: number
+              primary_category:
+                type: string
+              subcategory:
+                type: string
+              market_pack:
+                type: string
+        quota_state:
+          type: string
+      required: [matches]
+    PromptAssembleRequest:
+      type: object
+      properties:
+        intent_id:
+          type: string
+        selected_example_id:
+          type: string
+        missing_fields:
+          type: array
+          items:
+            type: string
+      required: [intent_id]
+    PromptAssembleResult:
+      type: object
+      properties:
+        prompt_shape:
+          type: object
+          properties:
+            title:
+              type: string
+            inputs:
+              type: array
+              items:
+                type: string
+            structure:
+              type: array
+              items:
+                type: string
+            starter_prompt:
+              type: string
+        quota_state:
+          type: string
+      required: [prompt_shape]
+    AIGenerateRequest:
+      type: object
+      properties:
+        backend_preference:
+          type: array
+          items:
+            type: string
+        prompt:
+          type: string
+        quota_state:
+          type: string
+      required: [prompt]
+    AIGenerateResult:
+      type: object
+      properties:
+        output:
+          type: string
+        backend_used:
+          type: string
+        quota_state:
+          type: string
+        stop_reason:
+          type: string
+    ApiResponseIntentResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/IntentResult'
+    ApiResponseExampleSearchResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ExampleSearchResult'
+    ApiResponsePromptAssembleResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/PromptAssembleResult'
+    ApiResponseAIGenerateResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/AIGenerateResult'
