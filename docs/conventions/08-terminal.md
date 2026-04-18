@@ -1,5 +1,8 @@
 # Terminal Conventions
 
+터미널 사용 기준의 원문이다.
+실행 체크리스트는 `docs/ops/workflows/terminal.md`를 참고한다.
+
 ## Rules
 
 - 터미널에서 필요한 명령만 실행한다.

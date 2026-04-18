@@ -1,6 +1,7 @@
 # Terminal Rules
 
-PromptCraft에서 PowerShell과 LLM CLI를 다룰 때의 기본 규칙이다.
+PromptCraft에서 PowerShell과 LLM CLI를 다룰 때의 실행 체크리스트다.
+세부 기준은 `docs/conventions/08-terminal.md`를 우선한다.
 
 ## Rules
 
@@ -8,7 +9,6 @@ PromptCraft에서 PowerShell과 LLM CLI를 다룰 때의 기본 규칙이다.
 - 한글이 깨지면 UTF-8 설정을 먼저 적용한다.
 - 긴 명령은 짧게 나눠서 실행한다.
 - 로그와 출력은 작업 검증에 필요한 만큼만 본다.
-- 비교 실험은 기본적으로 2개만 둔다.
 - 작업 지시는 `목표 / 대상 / 완료 기준 / 참조 문서`로 먼저 고정한다.
 - 컨벤션은 파일 경로로만 건넨다.
 

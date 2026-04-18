@@ -36,9 +36,13 @@ jobs:
       - name: Check docs
         run: |
           test -f agent.md
+          test "$(wc -l < agent.md)" -le 200
           test -f docs/README.md
           test -f docs/conventions/README.md
           test -f docs/project/README.md
+          test -f docs/architecture/README.md
+          test -f docs/workflow/README.md
+          test -f docs/ops/README.md
 
   utf8-check:
     runs-on: ubuntu-latest
@@ -53,6 +57,9 @@ jobs:
               Path("docs/README.md"),
               Path("docs/conventions/README.md"),
               Path("docs/project/README.md"),
+              Path("docs/architecture/README.md"),
+              Path("docs/workflow/README.md"),
+              Path("docs/ops/README.md"),
           ]
           for target in targets:
               target.read_text(encoding="utf-8")

@@ -1,5 +1,8 @@
 # Branch Conventions
 
+브랜치에 대한 기준 문서다.
+실행 체크리스트는 `docs/ops/workflows/working-tree.md`를 참고한다.
+
 ## Rules
 
 - 기본 브랜치에서 바로 작업하지 않는다.
