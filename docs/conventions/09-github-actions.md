@@ -1,5 +1,7 @@
 # GitHub Action Checks
 
+브랜치 보호용 체크 이름과 역할을 정리한다.
+
 ## Check Names
 
 - `repo-structure`

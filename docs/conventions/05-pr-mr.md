@@ -1,5 +1,8 @@
 # PR and MR Conventions
 
+PR/MR 작성 기준의 원문이다.
+제출 직전 체크리스트는 `docs/ops/workflows/pr-mr.md`를 참고한다.
+
 ## Rules
 
 - 하나의 PR/MR은 하나의 주제만 담는다.

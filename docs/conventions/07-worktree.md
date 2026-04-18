@@ -1,5 +1,8 @@
 # Worktree Conventions
 
+워킹트리 사용 기준의 원문이다.
+실행 전에 빠르게 점검할 항목은 `docs/ops/workflows/working-tree.md`를 참고한다.
+
 ## Rules
 
 - 작업 시작 전 현재 상태를 확인한다.

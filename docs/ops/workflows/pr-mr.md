@@ -1,15 +1,14 @@
 # PR and MR Rules
 
-PromptCraft에서 Pull Request와 Merge Request를 같은 기준으로 관리한다.
+PromptCraft에서 Pull Request와 Merge Request를 제출하기 전에 확인할 항목을 정리한다.
+세부 원칙은 `docs/conventions/05-pr-mr.md`를 우선한다.
 
 ## Rules
 
-- 하나의 PR/MR은 하나의 주제만 담는다.
-- 문서와 코드가 함께 바뀌면 같은 PR/MR에 묶는다.
-- 설명에는 무엇을, 왜, 어떻게 바꿨는지 적는다.
-- 검증 결과를 함께 남긴다.
-- 코드리뷰 요청은 가능한 한 자동화한다.
-- 변경 범위에 따라 관련 폴더 담당자가 확인할 수 있어야 한다.
+- `docs/conventions/05-pr-mr.md`를 먼저 확인한다.
+- 제출 전 변경 요약, 관련 문서, 확인 방법, 남은 작업, 코드리뷰 포인트가 준비됐는지 본다.
+- 검증 결과가 없으면 올리지 않는다.
+- 관련 없는 파일이 섞였으면 범위를 다시 자른다.
 
 ## Required Content
 
